@@ -8,15 +8,21 @@ $app->get('/api/issue/{number}', function (Request $request, Response $response,
 
     $this->logger->info("/api/issue/" . $number);
 
-    $client = new \Github\Client();
+    $page_raw = (int)$request->getParam('page');
+    $page = !empty($page_raw) ? $page_raw : 1;
+    $limit = ISSUE_COMMENT_LIST_PER_PAGE_LIMIT;
 
-    $issue = $client
-        ->api('issue')
-        ->comments()
+    $client = new \Github\Client();
+    $api = $client->api('issue')->comments(); // issue/comments
+
+    $api->setPerPage($limit); // not very consistent wrapper - other places allow to pass params into fetching method
+
+    $issue = $api
         ->all(
             GITHUB_USERNAME,
             GITHUB_REPO_NAME,
-            $number
+            $number,
+            $page
         )
     ;
 

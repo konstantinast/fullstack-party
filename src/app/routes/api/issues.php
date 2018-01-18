@@ -7,28 +7,29 @@ $app->get('/api/issues', function (Request $request, Response $response, array $
     $this->logger->info("/api/issues");
 
     $state = $request->getParam('state');
+    $page = (int)$request->getParam('page');
     $client = new \Github\Client();
+
+    $params['page'] = !empty($page) ? $page : 1;
+    $params['per_page'] = ISSUE_LIST_PER_PAGE_LIMIT;
 
     switch ($state) {
         case 'closed':
-            $issue_options = [
-                'state' => 'closed'
-            ];
+            $params['state'] = 'closed';
             break;
         case 'open':
         default:
-            $issue_options = [
-                'state' => 'open'
-            ];
+            $params['state'] = 'open';
             break;
     }
 
-    $issues = $client
-        ->api('issue')
+    $api = $client->api('issue');
+
+    $issues = $api
         ->all(
             GITHUB_USERNAME,
             GITHUB_REPO_NAME,
-            $issue_options
+            $params
         )
     ;
 
@@ -36,4 +37,3 @@ $app->get('/api/issues', function (Request $request, Response $response, array $
 
     return $json_response;
 });
-
