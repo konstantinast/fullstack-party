@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="tesonetFullstackPartyApp">
+    <head>
+        <!-- Base href is a must for html5 mode links in angular -->
+        <base href="/">
+
+        <link rel="stylesheet" href="/static/third_party/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/static/third_party/font-awesome/css/font-awesome.css" />
+
+        <script src="/static/third_party/angular/angular.min.js"></script>
+        <script src="/static/third_party/angular-route/angular-route.min.js"></script>
+        <script src="/static/js/angular_app/script.js"></script>
+    </head>
+
+    <body ng-controller="mainController">
+        <div id="main">
+            <div ng-view></div>
+        </div>
+
+        <footer class="text-center">
+
+        </footer>
+    </body>
+</html>

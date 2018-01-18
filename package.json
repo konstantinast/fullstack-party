@@ -1,0 +1,21 @@
+{
+    "name": "tesonet__fullstack-party",
+    "version": "0.0.1",
+    "description": "writing descriptions is hard",
+    "main": "index.js",
+    "repository": {
+        "url": "https://github.com/konstantinast/fullstack-party",
+        "type": "git"
+    },
+    "author": "Konstantinas <konstantinast@gmail.com>",
+    "license": "MIT",
+    "dependencies": {
+        "angular": "^1.6.8",
+        "angular-route": "^1.6.8",
+        "bootstrap": "^3.0.0",
+        "font-awesome": "^4.7.0"
+    },
+    "scripts": {
+        "postinstall": "php yarn_post_install.php"
+    }
+}
