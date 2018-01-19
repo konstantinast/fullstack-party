@@ -22,7 +22,7 @@ require __DIR__ . '/../src/constants-dev.php';
 require __DIR__ . '/../src/constants.php';
 
 // Set up dependencies
-require __DIR__ . '/../src/dependencies-dev.php';
+@include __DIR__ . '/../src/dependencies-dev.php';
 require __DIR__ . '/../src/dependencies.php';
 
 // Register middleware

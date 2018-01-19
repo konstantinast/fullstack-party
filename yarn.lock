@@ -31,7 +31,3 @@ ng-time-relative@^0.7.0:
   resolved "https://registry.yarnpkg.com/ng-time-relative/-/ng-time-relative-0.7.0.tgz#bef460f77bed0a0530e4a31428bef521fa072380"
   dependencies:
     moment "~2.0.0"
-
-pagination@^0.4.4:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/pagination/-/pagination-0.4.4.tgz#f83ee2b51a5723c390bc78f44d8a20fe27557a9c"

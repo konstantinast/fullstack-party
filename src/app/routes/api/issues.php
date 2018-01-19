@@ -55,7 +55,7 @@ $app->get('/api/issues', function (Request $request, Response $response, array $
         'issues' => $issues,
         'count' => [
             'open' => $repo_info['open_issues'],
-            'closed' => $repo_info['closed_issues']
+//            'closed' => $repo_info['closed_issues'] // SEE COMMENT ABOVE
         ],
         'per_page' => $params['per_page'],
         'repo_info' => $repo_info
