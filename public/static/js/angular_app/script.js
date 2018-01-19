@@ -1,4 +1,4 @@
-var app = angular.module('tesonetFullstackPartyApp', ['ngRoute']);
+var app = angular.module('tesonetFullstackPartyApp', ['ngRoute', 'timeRelative']);
 
 app.config(function ($routeProvider, $locationProvider) {
     // Define routes
@@ -85,9 +85,7 @@ app.controller('issueEntryController', [
         }).then(function (response) {
             console.log(response.data);
             
-            $scope.issue_entry = response.data;
-        });
-
-        $scope.message = 'I am an issue list page.';     
+            $scope.data = response.data;
+        });  
     }
 ]);

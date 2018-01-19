@@ -17,3 +17,17 @@ bootstrap@^3.0.0:
 font-awesome@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
+
+moment@^2.20.1:
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
+
+moment@~2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.0.0.tgz#2bbc5b44c321837693ab6efcadbd46ed946211fe"
+
+ng-time-relative@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/ng-time-relative/-/ng-time-relative-0.7.0.tgz#bef460f77bed0a0530e4a31428bef521fa072380"
+  dependencies:
+    moment "~2.0.0"

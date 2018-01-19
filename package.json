@@ -13,7 +13,9 @@
         "angular": "^1.6.8",
         "angular-route": "^1.6.8",
         "bootstrap": "^3.0.0",
-        "font-awesome": "^4.7.0"
+        "font-awesome": "^4.7.0",
+        "moment": "^2.20.1",
+        "ng-time-relative": "^0.7.0"
     },
     "scripts": {
         "postinstall": "php yarn_post_install.php"

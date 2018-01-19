@@ -13,11 +13,22 @@ $app->get('/api/issue/{number}', function (Request $request, Response $response,
     $limit = ISSUE_COMMENT_LIST_PER_PAGE_LIMIT;
 
     $client = new \Github\Client();
-    $api = $client->api('issue')->comments(); // issue/comments
 
-    $api->setPerPage($limit); // not very consistent wrapper - other places allow to pass params into fetching method
+    $issue_api = $client->api('issue');
 
-    $issue = $api
+    $issue = $issue_api
+        ->show(
+            GITHUB_USERNAME,
+            GITHUB_REPO_NAME,
+            $number
+        )
+    ;
+
+    $issue_comments_api = $client->api('issue')->comments(); // issue/comments
+
+    $issue_comments_api->setPerPage($limit); // not very consistent wrapper - other places allow to pass params into fetching method
+
+    $comments = $issue_comments_api
         ->all(
             GITHUB_USERNAME,
             GITHUB_REPO_NAME,
@@ -26,7 +37,12 @@ $app->get('/api/issue/{number}', function (Request $request, Response $response,
         )
     ;
 
-    $json_response = $response->withJson($issue);
+    $data = [
+        'issue' => $issue,
+        'comments' => $comments
+    ];
+
+    $json_response = $response->withJson($data);
 
     return $json_response;
 });
