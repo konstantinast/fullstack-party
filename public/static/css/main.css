@@ -197,3 +197,47 @@ a.logout:hover {
     text-decoration: none;
     color: #99cc33;
 }
+
+.right-block .row {
+    background: url('/static/img/a_man_squatting_on_a_plank_100opacity.png') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.issue-list-entry .status {
+    width: 64px;
+    height: 64px;
+    margin-right: 10px;
+    float: left;   
+}
+
+.issue-list-entry .content {
+    border-radius: 5px;
+    min-height: 4em;
+    background-color: #ffffff;
+    overflow: hidden;
+    width: auto;
+}
+
+.issue-list-entry {
+	padding:10px;
+}
+
+.issue-list-entry .content h1 {
+    font-size: 15px;
+}
+
+.issue-list .state-control {
+    margin-top: 14px; 
+}
+
+.issue-list .state-control .button {
+    margin: 0px 10px;
+}
+
+.issue-list .state-control .button.active {
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
+}
