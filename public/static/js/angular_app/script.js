@@ -26,7 +26,7 @@ app.factory('appConfigDataService',[
     function () {
         var s = {};
 
-        s.api_url = 'http://www.tesonet-fullstack-party.com/api/';
+        s.api_url = document.location.protocol + '//' + document.location.host + '/api/';
 
         return s;
     }
