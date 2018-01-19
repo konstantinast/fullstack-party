@@ -2,7 +2,6 @@
 /logs/*
 !/logs/README.md
 /nbproject/
-/src/constants-dev.php
 /src/dependencies-dev.php
 /node_modules/
 /public/static/third_party/*
