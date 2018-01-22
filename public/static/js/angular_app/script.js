@@ -48,7 +48,7 @@ app.controller('issueListController', [
         appConfigDataService
     ) {
         var state = !$routeParams.state ? 'open': $routeParams.state;
-        var page_number = !$routeParams.page_number ? 1: $routeParams.page_number;;
+        var page_number = parseInt(!$routeParams.page_number ? 1: $routeParams.page_number);
         var url = appConfigDataService.api_url + 'issues' + '?' 
             + 'state=' + state + '&'
             + 'page=' + page_number
@@ -58,19 +58,26 @@ app.controller('issueListController', [
             method: 'GET',
             url: url
         }).then(function (response) {               
-            var total = response.data.count[state];
+            var total_records = response.data.count[state];
             var per_page = response.data.per_page;
-            $scope.page_numbers = generatePageNumbers(page_number, total, per_page);
+            var number_of_pages = getNumberOfPages(total_records, per_page);
+            $scope.page_numbers = generatePageNumbers(page_number, number_of_pages);
+            $scope.prev_page_number = generatePrevPageNumber(page_number, number_of_pages);
+            $scope.next_page_number = generateNextPageNumber(page_number, number_of_pages);
+            $scope.current_page = page_number;
             
             $scope.data = response.data;
         });
         
         $scope.state = state;
         
-        function generatePageNumbers(current_page, total, per_page) {
+        function getNumberOfPages(total_records, per_page) {
+            return parseInt(total_records / per_page);
+        }
+        
+        function generatePageNumbers(current_page, number_of_pages) {
             var delta = 1;
             
-            var number_of_pages = parseInt(total / per_page);
             var first_page_number = 1;
             var last_page_number = number_of_pages;
             var from = parseInt(current_page) - delta;
@@ -112,6 +119,33 @@ app.controller('issueListController', [
             }         
 
             return page_number;
+        }
+        
+        function generatePrevPageNumber(current_page, number_of_pages) {
+            var number = current_page - 1;
+            
+            if (
+                number < 1 // underflow
+                ||
+                number_of_pages === 1
+            ) {
+                number = null;
+            }
+            
+            return number;
+        }
+        
+        function generateNextPageNumber(current_page, number_of_pages) {
+            var number = current_page + 1;
+            
+            if (
+                number > number_of_pages // overflow
+                ||
+                number_of_pages === 1
+            ) {
+                number = null;
+            }
+            return number;
         }
     }
 ]);

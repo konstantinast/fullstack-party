@@ -1,69 +1,103 @@
-<ng-include src="'/static/js/angular_app/templates/top-default-navbar.html'"></ng-include>
-
-<div class='col-xs-12 col-sm-6 left-block issue-list'>
-    <div class="row">
-        <div class="col-xs-12 state-control">
-            <div class="text-center">
-                <span 
-                    class="button"
-                    data-ng-class="{
-                        'active': state === 'open'                                 
-                    }"
-                >
-                    <a href="issues/open">
-                        <i class="fa fa-exclamation-circle"></i>
-                        {{data.count.open}} Open                    
-                    </a>
-                </span>
-                <span 
-                    class="button"
-                    data-ng-class="{
-                        'active': state === 'closed'                                 
-                    }"
-                >
-                    <a href="issues/closed">
-                        <i class="fa fa-check-circle"></i>
-                        {{data.count.closed}} Closed                
-                    </a>
-                </span>
+<div class="container viewport">
+    <ng-include src="'/static/js/angular_app/templates/top-default-navbar.html'"></ng-include>
+    <div class="row content-block">
+        <div class='col-xs-12 col-sm-6 left-block '>
+            <div class="col-xs-12 issue-list">
+                <div class="row">
+                    <div class="col-xs-12 state-control">
+                        <div class="text-center">
+                            <span 
+                                class="button"
+                                data-ng-class="{
+                                    'active': state === 'open'                                 
+                                }"
+                            >
+                                <a href="issues/open">
+                                    <i class="fa fa-exclamation-circle"></i>
+                                    {{data.count.open}} Open                    
+                                </a>
+                            </span>
+                            <span 
+                                class="button"
+                                data-ng-class="{
+                                    'active': state === 'closed'                                 
+                                }"
+                            >
+                                <a href="issues/closed">
+                                    <i class="fa fa-check-circle"></i>
+                                    {{data.count.closed}} Closed                
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class='row issue-list-entry' data-ng-repeat='issue in data.issues'>
+                    <div class="status hidden-xs">
+                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                    </div>
+                    <div class="content">
+                        <h1>
+                            <span class="comment-count pull-right">
+                                <img class="icon" src="/static/img/ico-comments.png">
+                                {{issue.comments}}
+                            </span>
+                            <a href="issue/{{issue.number}}">{{issue.title}}</a>
+                        </h1>
+                        <div class="info">
+                            <span class="summary-text">
+                                #{{issue.number}}
+                                opened
+                                <time relative datetime="{{issue.created_at}}"></time>
+                                by
+                                <span class="user">
+                                    <a 
+                                        href="{{issue.user.html_url}}"
+                                    >{{issue.user.login}}</a>
+                                </span>
+                            </span> 
+                        </div>
+                    </div>        
+                </div>                     
+            </div>
+            <div class="col-xs-12">
+                <div class="row pagination-controls text-center">
+                    <ul class="pagination">
+                        <li data-ng-if="prev_page_number" class="rltv">
+                            <a href="/issues/{{state}}/{{prev_page_number}}">
+                                Prev
+                            </a>
+                        </li>
+                        <li 
+                            data-ng-repeat="page_number in page_numbers track by $index"
+                            data-ng-class="{
+                                'dots': page_number === 0,
+                                'current': page_number === current_page 
+                            }"
+                        >
+                            <a data-ng-if="page_number > 0" href="/issues/{{state}}/{{page_number}}">{{page_number}}</a>
+                            <a data-ng-if="page_number === 0">...</a>
+                        </li>
+                        <li data-ng-if="next_page_number" class="rltv">
+                            <a href="/issues/{{state}}/{{next_page_number}}">
+                                Next
+                            </a>
+                        </li>
+                    </ul>
+                </div> 
             </div>
         </div>
-    </div>
-    <div class='row issue-list-entry' data-ng-repeat='issue in data.issues'>
-        <div class="status hidden-xs">
-            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-        </div>
-        <div class="content">
-            <h1>
-                <a href="issue/{{issue.number}}">{{issue.title}}</a>
-            </h1>
-            <div class="info">
-                <span class="summary-text">
-                    #{{issue.number}}
-                    opened
-                    <time relative datetime="{{issue.created_at}}"></time>
-                    by
-                    <span class="user">
-                        <a 
-                            href="{{issue.user.html_url}}"
-                        >{{issue.user.login}}</a>
-                    </span>
-                </span> 
-            </div>
-        </div>        
-    </div>
-    <div class="row pagination-controls">
-        <ul class="pagination">
-            <li data-ng-repeat="page_number in page_numbers track by $index">
-                <a data-ng-if="page_number > 0" href="/issues/{{state}}/{{page_number}}">{{page_number}}</a>
-                <a data-ng-if="page_number === 0">...</a>
-            </li>
-        </ul>
-    </div>
-</div>
 
-<div class='hidden-xs col-sm-6 right-block'>
-    <div class='row'>
-        
+        <div class="hidden-xs col-sm-6 right-block">
+            <div class="overlay"></div>
+
+            <div class="overlay-as-title">
+                <h1>
+                    Full Stack Developer Task
+                    <div class="subtitle">
+                        by<img src="/static/img/logotype-testio-right-block.png">
+                    </div>
+                </h1>
+            </div>
+        </div>     
     </div>
 </div>
