@@ -33,14 +33,19 @@ $app->get('/api/issues', function (Request $request, Response $response, array $
         )
     ;
 
-    // --- Get closed issue count --*
-    // SADLY this is not really possible without the use of
-    // Github v4 API (a.k.a. GraphQL API), which can only be
-    // accessed after authentification with Github account
-    // SO until user authentification is not implemented
-    // this count cannot be retrieved via single call
-    // (by that I mean, that we can always poll api by narrowing intervals
-    // but that is a a sure way to get banned) :D
+    $query = '
+        query {
+            repository(owner:"KnpLabs", name:"php-github-api") {
+                issues(states:CLOSED) {
+                    totalCount
+                }
+            }
+        }
+    ';
+
+    $repo_info_v4 = $client->api('graphql')->execute($query);
+
+    $closed_issue_count = $repo_info_v4['data']['repository']['issues']['totalCount'];
 
     $issue_api = $client->api('issue');
 
@@ -56,7 +61,7 @@ $app->get('/api/issues', function (Request $request, Response $response, array $
         'issues' => $issues,
         'count' => [
             'open' => $repo_info['open_issues'],
-//            'closed' => $repo_info['closed_issues'] // SEE COMMENT ABOVE
+            'closed' => $closed_issue_count
         ],
         'per_page' => $params['per_page'],
         'repo_info' => $repo_info
