@@ -6,7 +6,7 @@ body {
 .viewport {
     height: 100%;
     width: 100%;
-    overflow: hidden;
+     overflow: hidden; 
 }
 
 .content-block {
@@ -18,8 +18,7 @@ body {
     background-color: #f5f5f5
 }
 
-/* Override a bit of bootstrap stuff */
-.container {
+.custom-container {
     margin: 0px;
     padding: 0px;
     width: 100%;
@@ -152,7 +151,7 @@ a.back-to-issues:hover {
     font-size: initial;
 }
 
-.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+.navbar>.custom-container .navbar-brand {
     margin-left: 50px;	
 }
 
@@ -361,17 +360,20 @@ a.logout:hover {
 }
 
 .issue-list {
-    overflow-y: scroll;
     height: calc(100% - 15%);
 }
 
-.issue-list::-webkit-scrollbar
+.scrollable {
+    overflow-y: scroll;    
+}
+
+.scrollable::-webkit-scrollbar
 {
 	width: 6px;
 	background-color: #F5F5F5;
 }
 
-.issue-list::-webkit-scrollbar-thumb
+.scrollable::-webkit-scrollbar-thumb
 {
 	border-radius: 3px;
     background-color: #b8b8b8;
@@ -415,6 +417,24 @@ a.logout:hover {
 .overlay-as-title h1 .subtitle img {
 	margin-left: 7px;
 	vertical-align: initial
+}
+
+/*
+    Overriding Bootstrap negative margins ...
+    How does this even work in real life ?
+    A printer printing outside the edges of paper :D ???
+*/
+.content-block.row {
+    margin-left:0px;
+    margin-right:0px;
+}
+
+/* 
+    Because BS negative margins on .row 
+    are causing a horizontall scroll
+*/
+.scrollable .container {
+    width: calc(100% - 30px); 
 }
 
 @media (min-width:768px) {

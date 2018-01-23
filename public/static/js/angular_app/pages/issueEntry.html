@@ -1,63 +1,66 @@
-<ng-include src="'/static/js/angular_app/templates/top-default-navbar.html'"></ng-include>
+<div class="custom-container container viewport">
+    <ng-include src="'/static/js/angular_app/templates/top-default-navbar.html'"></ng-include>
+    <div class="row content-block scrollable">
+        <div class="container issue-entry" data-ng-cloak>
+            <nav class="navbar above-jumbotron">
+                <div class="container">
+                    <span>
+                        <a class="back-to-issues" href="/issues">Back to issues</a>
+                    </span>
+                </div>
+            </nav>
 
-<div class="container issue-entry" data-ng-cloak>
-    <nav class="navbar above-jumbotron">
-        <div class="container">
-            <span>
-                <a class="back-to-issues" href="/issues">Back to issues</a>
-            </span>
-        </div>
-    </nav>
-        
-    <div class="jumbotron">
-        <h1 class="issue-title">
-            {{data.issue.title}}
-            <a href="{{data.issue.html_url}}">
-                #{{data.issue.number}}
-            </a>
-        </h1> 
-        <div class="desc">
-            <div class="label status-open">
-                OPEN
-            </div>
-            
-            <div class="info">
-                <span class="user">
-                    <a 
-                        href="{{data.issue.user.html_url}}"
-                    >{{data.issue.user.login}}</a>
-                </span>
-                <span class="action-text">
-                    opened this issue <time relative datetime="{{data.issue.created_at}}"></time>
-                </span>
-                <span class="summary-text">· {{data.issue.comments}} comment{{(data.issue.comments > 1) ? 's': '';}}</span> 
-            </div>
-        </div> 
-    </div>
-  
-    <div class="comment-entry" data-ng-repeat="comment in data.comments">
-        <div 
-            class="profile-pic hidden-xs"
-            style="background-image: url('{{comment.user.avatar_url}}')"
-        ></div>
-        <div class="comment-wrapper">
-            <div class="comment bubble pointed-left">
-                <header>
+            <div class="jumbotron">
+                <h1 class="issue-title">
+                    {{data.issue.title}}
+                    <a href="{{data.issue.html_url}}">
+                        #{{data.issue.number}}
+                    </a>
+                </h1> 
+                <div class="desc">
+                    <div class="label status-open">
+                        OPEN
+                    </div>
+
                     <div class="info">
                         <span class="user">
                             <a 
-                                href="{{comment.user.html_url}}"
-                            >{{comment.user.login}}</a>
+                                href="{{data.issue.user.html_url}}"
+                            >{{data.issue.user.login}}</a>
                         </span>
                         <span class="action-text">
-                            commented <time relative datetime="{{comment.created_at}}"></time>
-                        </span>                    
+                            opened this issue <time relative datetime="{{data.issue.created_at}}"></time>
+                        </span>
+                        <span class="summary-text">· {{data.issue.comments}} comment{{(data.issue.comments > 1) ? 's': '';}}</span> 
                     </div>
-                </header>
-                <div class="content">
-                    {{comment.body}}
-                </div>
+                </div> 
             </div>
-        </div>        
-    </div>
+
+            <div class="comment-entry" data-ng-repeat="comment in data.comments">
+                <div 
+                    class="profile-pic hidden-xs"
+                    style="background-image: url('{{comment.user.avatar_url}}')"
+                ></div>
+                <div class="comment-wrapper">
+                    <div class="comment bubble pointed-left">
+                        <header>
+                            <div class="info">
+                                <span class="user">
+                                    <a 
+                                        href="{{comment.user.html_url}}"
+                                    >{{comment.user.login}}</a>
+                                </span>
+                                <span class="action-text">
+                                    commented <time relative datetime="{{comment.created_at}}"></time>
+                                </span>                    
+                            </div>
+                        </header>
+                        <div class="content">
+                            {{comment.body}}
+                        </div>
+                    </div>
+                </div>        
+            </div>
+        </div>    
+    </div>    
 </div>
