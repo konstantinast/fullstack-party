@@ -3,8 +3,8 @@
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-$app->get('/api/issue/{number}', function (Request $request, Response $response, array $args) {
-    $number = $args['number']; // internal number of issue in repo
+$app->get('/api/issue', function (Request $request, Response $response, array $args) {
+    $number = $request->getParam('number'); // internal number of issue in repo
 
     $this->logger->info("/api/issue/" . $number);
 
@@ -40,7 +40,9 @@ $app->get('/api/issue/{number}', function (Request $request, Response $response,
 
     $data = [
         'issue' => $issue,
-        'comments' => $comments
+        'comments' => $comments,
+        'count' => $issue['comments'],
+        'per_page' => $limit
     ];
 
     $json_response = $response->withJson($data);

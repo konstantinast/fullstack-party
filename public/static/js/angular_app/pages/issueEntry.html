@@ -35,8 +35,9 @@
                     </div>
                 </div> 
             </div>
-
+            
             <comment-entry
+                data-ng-if='pagination_data.current_page === 1'
                 comment="data.issue"
             >        
             </comment-entry>  
@@ -45,7 +46,12 @@
                 data-ng-repeat="comment in data.comments"
                 comment="comment"
             >        
-            </comment-entry>  
+            </comment-entry>
+            
+            <pagination-controls
+                d="pagination_data"
+            >        
+            </pagination-controls>
         </div>    
     </div>    
 </div>

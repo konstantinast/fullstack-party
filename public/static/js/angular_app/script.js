@@ -23,7 +23,7 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: 'static/js/angular_app/pages/issueList.html',
             controller: 'issueListController'
         })
-        .when('/issue/:number', {
+        .when('/issue/:number/:page_number?', {
             templateUrl: 'static/js/angular_app/pages/issueEntry.html',
             controller: 'issueEntryController'
         });
@@ -73,10 +73,12 @@ app.controller('issueListController', [
             var total_records = response.data.count[state];
             var per_page = response.data.per_page;
             var number_of_pages = getNumberOfPages(total_records, per_page);
-            $scope.page_numbers = generatePageNumbers(page_number, number_of_pages);
-            $scope.prev_page_number = generatePrevPageNumber(page_number, number_of_pages);
-            $scope.next_page_number = generateNextPageNumber(page_number, number_of_pages);
-            $scope.current_page = page_number;
+                        
+            $scope.pagination_data = {
+                base_url: '/issues/' + state,
+                number_of_pages: number_of_pages,
+                current_page: page_number
+            };
             
             $scope.data = response.data;
         });
@@ -84,80 +86,7 @@ app.controller('issueListController', [
         $scope.state = state;
         
         function getNumberOfPages(total_records, per_page) {
-            return parseInt(total_records / per_page);
-        }
-        
-        function generatePageNumbers(current_page, number_of_pages) {
-            var delta = 1;
-            
-            var first_page_number = 1;
-            var last_page_number = number_of_pages;
-            var from = parseInt(current_page) - delta;
-            var to = parseInt(current_page) + delta;
-            var range = [];
-            
-            if (from < 1) {
-                from = 1;
-            }
-            
-            if (to > last_page_number) {
-                to = last_page_number;
-            }
-            
-            for (var i = from; i <= to; i++) {
-                range.push(i);
-            }
-            
-            // Add first
-            if (range[0] !== first_page_number) {
-                range.unshift(first_page_number);             
-            }
-            
-            // And last page number
-            if (range[range.length - 1] !== last_page_number) {
-                range.push(last_page_number);             
-            }
-            
-            // Lets add null to gaps
-            var page_number = [];
-            
-            for (var i = 0; i < range.length; i++) {
-                if (range[i+1] - range[i] > 1) {
-                    page_number.push(range[i]);
-                    page_number.push(0);
-                } else {
-                    page_number.push(range[i]);
-                }
-            }         
-
-            return page_number;
-        }
-        
-        function generatePrevPageNumber(current_page, number_of_pages) {
-            var number = current_page - 1;
-            
-            if (
-                number < 1 // underflow
-                ||
-                number_of_pages === 1
-            ) {
-                number = null;
-            }
-            
-            return number;
-        }
-        
-        function generateNextPageNumber(current_page, number_of_pages) {
-            var number = current_page + 1;
-            
-            if (
-                number > number_of_pages // overflow
-                ||
-                number_of_pages === 1
-            ) {
-                number = null;
-            }
-            return number;
+            return Math.ceil(total_records / per_page);
         }
     }
 ]);
@@ -179,13 +108,31 @@ app.controller('issueEntryController', [
             throw 'Issue number provided. Implement redirect to issue list or navigate to the last page in history';
         }
         
-        var url = appConfigDataService.api_url + 'issue' + '/' + issue_number; 
-        
+        var page_number = parseInt(!$routeParams.page_number ? 1: $routeParams.page_number);
+        var url = appConfigDataService.api_url + 'issue' + '?' 
+            + 'number=' + issue_number + '&'
+            + 'page=' + page_number
+        ; 
+                
         $http({
             method: 'GET',
             url: url
-        }).then(function (response) {            
+        }).then(function (response) { 
+            var total_records = response.data.count;
+            var per_page = response.data.per_page;
+            var number_of_pages = getNumberOfPages(total_records, per_page);
+                        
+            $scope.pagination_data = {
+                base_url: '/issue/' + issue_number,
+                number_of_pages: number_of_pages,
+                current_page: page_number
+            };
+            
             $scope.data = response.data;
-        });  
+        }); 
+        
+        function getNumberOfPages(total_records, per_page) {
+            return Math.ceil(total_records / per_page);
+        }
     }
 ]);

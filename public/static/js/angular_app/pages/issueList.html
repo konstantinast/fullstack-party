@@ -60,30 +60,10 @@
                 </div>                     
             </div>
             <div class="col-xs-12">
-                <div class="row pagination-controls text-center">
-                    <ul class="pagination">
-                        <li data-ng-if="prev_page_number" class="rltv">
-                            <a href="/issues/{{state}}/{{prev_page_number}}">
-                                Prev
-                            </a>
-                        </li>
-                        <li 
-                            data-ng-repeat="page_number in page_numbers track by $index"
-                            data-ng-class="{
-                                'dots': page_number === 0,
-                                'current': page_number === current_page 
-                            }"
-                        >
-                            <a data-ng-if="page_number > 0" href="/issues/{{state}}/{{page_number}}">{{page_number}}</a>
-                            <a data-ng-if="page_number === 0">...</a>
-                        </li>
-                        <li data-ng-if="next_page_number" class="rltv">
-                            <a href="/issues/{{state}}/{{next_page_number}}">
-                                Next
-                            </a>
-                        </li>
-                    </ul>
-                </div> 
+                <pagination-controls
+                    d="pagination_data"
+                >        
+                </pagination-controls>
             </div>
         </div>
 
