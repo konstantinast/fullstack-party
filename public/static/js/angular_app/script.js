@@ -13,6 +13,12 @@ app.config(function ($routeProvider, $locationProvider) {
                 window.location.replace('/api/login_with_github');
             }
         })
+        .when('/logout', {
+            templateUrl: 'static/js/angular_app/pages/main.html',
+            controller: function() {
+                window.location.replace('/api/logout');
+            }
+        })
         .when('/issues/:state?/:page_number?', {
             templateUrl: 'static/js/angular_app/pages/issueList.html',
             controller: 'issueListController'
