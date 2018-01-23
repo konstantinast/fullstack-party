@@ -1,0 +1,25 @@
+<div class="comment-entry">
+    <div 
+        class="profile-pic hidden-xs"
+        style="background-image: url('{{comment.user.avatar_url}}')"
+    ></div>
+    <div class="comment-wrapper">
+        <div class="comment bubble pointed-left">
+            <header>
+                <div class="info">
+                    <span class="user">
+                        <a 
+                            href="{{comment.user.html_url}}"
+                        >{{comment.user.login}}</a>
+                    </span>
+                    <span class="action-text">
+                        commented <time relative datetime="{{comment.created_at}}"></time>
+                    </span>                    
+                </div>
+            </header>
+            <div class="content">
+                {{comment.body}}
+            </div>
+        </div>
+    </div>
+</div>
