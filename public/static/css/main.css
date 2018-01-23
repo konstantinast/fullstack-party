@@ -39,6 +39,7 @@ body {
     border-radius: 32px;
     margin-right: 10px;
     float: left;
+    background-size: 64px 64px;
 }
 
 .comment-wrapper {
