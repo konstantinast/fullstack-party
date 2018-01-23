@@ -43,7 +43,6 @@ $app->get('/api/github_auth_callback', function (Request $request, Response $res
 
     $_SESSION['github_api_access_token'] = $access_token;
 
-    // Redirect user back to home page
     $redir_url = '/issues';
 
     return $response->withStatus(302)->withHeader('Location', $redir_url);
