@@ -13,6 +13,7 @@ $app->get('/api/issue/{number}', function (Request $request, Response $response,
     $limit = ISSUE_COMMENT_LIST_PER_PAGE_LIMIT;
 
     $client = new \Github\Client();
+    $client->authenticate($_SESSION['github_api_access_token'], null, Github\Client::AUTH_HTTP_TOKEN);
 
     $issue_api = $client->api('issue');
 

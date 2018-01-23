@@ -9,6 +9,7 @@ $app->get('/api/issues', function (Request $request, Response $response, array $
     $state = $request->getParam('state');
     $page = (int)$request->getParam('page');
     $client = new \Github\Client();
+    $client->authenticate($_SESSION['github_api_access_token'], null, Github\Client::AUTH_HTTP_TOKEN);
 
     $params['page'] = !empty($page) ? $page : 1;
     $params['per_page'] = ISSUE_LIST_PER_PAGE_LIMIT;
