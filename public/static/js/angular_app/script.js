@@ -2,10 +2,16 @@ var app = angular.module('tesonetFullstackPartyApp', ['ngRoute', 'timeRelative']
 
 app.config(function ($routeProvider, $locationProvider) {
     // Define routes
-    $routeProvider
+    $routeProvider  
         .when('/', {
             templateUrl: 'static/js/angular_app/pages/main.html',
             controller: 'mainController'
+        })
+        .when('/login_with_github', {
+            templateUrl: 'static/js/angular_app/pages/main.html',
+            controller: function() {
+                window.location.replace('/api/login_with_github');
+            }
         })
         .when('/issues/:state?/:page_number?', {
             templateUrl: 'static/js/angular_app/pages/issueList.html',
@@ -32,7 +38,7 @@ app.factory('appConfigDataService',[
     }
 ]);
 
-app.controller('mainController', function ($scope) {    
+app.controller('mainController', function ($scope) {
     $scope.message = 'I am the main page.';
 });
 
