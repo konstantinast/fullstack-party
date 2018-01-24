@@ -5,6 +5,8 @@ use Slim\Http\Response;
 
 $app->get('/api/issue', function (Request $request, Response $response, array $args) {
     $number = $request->getParam('number'); // internal number of issue in repo
+    $repo_owner = $request->getParam('repo_owner');
+    $repo_name = $request->getParam('repo_name');
 
     $this->logger->info("/api/issue/" . $number);
 
@@ -19,8 +21,8 @@ $app->get('/api/issue', function (Request $request, Response $response, array $a
 
     $issue = $issue_api
         ->show(
-            GITHUB_USERNAME,
-            GITHUB_REPO_NAME,
+            $repo_owner,
+            $repo_name,
             $number
         )
     ;
@@ -31,8 +33,8 @@ $app->get('/api/issue', function (Request $request, Response $response, array $a
 
     $comments = $issue_comments_api
         ->all(
-            GITHUB_USERNAME,
-            GITHUB_REPO_NAME,
+            $repo_owner,
+            $repo_name,
             $number,
             $page
         )

@@ -6,65 +6,62 @@ use Slim\Http\Response;
 $app->get('/api/issues', function (Request $request, Response $response, array $args) {
     $this->logger->info("/api/issues");
 
+    $allowed_states = [
+        'open',
+        'closed'
+    ];
+
     $state = $request->getParam('state');
-    $page = (int)$request->getParam('page');
+    $page_raw = (int)$request->getParam('page');
     $client = new \Github\Client();
     $client->authenticate($_SESSION['github_api_access_token'], null, Github\Client::AUTH_HTTP_TOKEN);
 
-    $params['page'] = !empty($page) ? $page : 1;
-    $params['per_page'] = ISSUE_LIST_PER_PAGE_LIMIT;
+    $current_user = $client->currentUser();
+    $current_user_info = $current_user->show();
 
-    switch ($state) {
-        case 'closed':
-            $params['state'] = 'closed';
-            break;
-        case 'open':
-        default:
-            $params['state'] = 'open';
-            break;
+    $page = !empty($page_raw) ? $page_raw : 1;
+    $per_page = ISSUE_LIST_PER_PAGE_LIMIT;
+
+    $params = [
+        'is:issue',
+        'assignee:'.$current_user_info['login'],
+        'archived:false'
+    ];
+
+    $search_api = $client->api('search');
+    $search_api->setPage($page);
+    $search_api->setPerPage($per_page);
+
+    foreach ($allowed_states as $allowed_state) {
+        $query = implode(' ', array_merge($params, ['is:' . $allowed_state]));
+
+        $api_reponse[$allowed_state] = $search_api->issues($query);
     }
 
-    $repo_api = $client->api('repo');
+    $selected_state = strtolower($state);
 
-    $repo_info = $repo_api
-        ->show(
-            GITHUB_USERNAME,
-            GITHUB_REPO_NAME
-        )
-    ;
+    $issues = $api_reponse[$selected_state]['items'];
 
-    $query = '
-        query {
-            repository(owner:"KnpLabs", name:"php-github-api") {
-                issues(states:CLOSED) {
-                    totalCount
-                }
-            }
-        }
-    ';
+    // Extract info
+    $matches = [];
 
-    $repo_info_v4 = $client->api('graphql')->execute($query);
+    foreach ($issues as & $issue) {
+        preg_match("/\/repos\/(.*)\/(.*)(?:\/){0,1}/", $issue['repository_url'], $matches);
 
-    $closed_issue_count = $repo_info_v4['data']['repository']['issues']['totalCount'];
+        $repo_owner = $matches[1];
+        $repo_name = $matches[2];
 
-    $issue_api = $client->api('issue');
-
-    $issues = $issue_api
-        ->all(
-            GITHUB_USERNAME,
-            GITHUB_REPO_NAME,
-            $params
-        )
-    ;
+        $issue['repo_owner'] = $repo_owner;
+        $issue['repo_name'] = $repo_name;
+    }
 
     $data = [
         'issues' => $issues,
         'count' => [
-            'open' => $repo_info['open_issues'],
-            'closed' => $closed_issue_count
+            'open' => $api_reponse['open']['total_count'],
+            'closed' => $api_reponse['closed']['total_count']
         ],
-        'per_page' => $params['per_page'],
-        'repo_info' => $repo_info
+        'per_page' => $per_page
     ];
 
     $json_response = $response->withJson($data);

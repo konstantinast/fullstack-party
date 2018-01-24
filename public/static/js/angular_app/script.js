@@ -23,7 +23,7 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: 'static/js/angular_app/pages/issueList.html',
             controller: 'issueListController'
         })
-        .when('/issue/:number/:page_number?', {
+        .when('/issue/:repo_owner/:repo_name/:number/:page_number?', {
             templateUrl: 'static/js/angular_app/pages/issueEntry.html',
             controller: 'issueEntryController'
         });
@@ -102,14 +102,13 @@ app.controller('issueEntryController', [
         $routeParams,
         appConfigDataService
     ) {
-        var issue_number = $routeParams.number;
-        
-        if (!issue_number) {
-            throw 'Issue number provided. Implement redirect to issue list or navigate to the last page in history';
-        }
-        
+        var issue_number = $routeParams.number;              
+        var repo_owner = $routeParams.repo_owner;
+        var repo_name = $routeParams.repo_name;
         var page_number = parseInt(!$routeParams.page_number ? 1: $routeParams.page_number);
         var url = appConfigDataService.api_url + 'issue' + '?' 
+            + 'repo_owner=' + repo_owner + '&'
+            + 'repo_name=' + repo_name + '&'
             + 'number=' + issue_number + '&'
             + 'page=' + page_number
         ; 
@@ -123,7 +122,7 @@ app.controller('issueEntryController', [
             var number_of_pages = getNumberOfPages(total_records, per_page);
                         
             $scope.pagination_data = {
-                base_url: '/issue/' + issue_number,
+                base_url: '/issue/' + repo_owner + '/' + repo_name + '/' + issue_number,
                 number_of_pages: number_of_pages,
                 current_page: page_number
             };
