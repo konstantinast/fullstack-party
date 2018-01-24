@@ -507,6 +507,15 @@ a.logout:hover {
     margin-bottom: 10px;
 }
 
+.issue-list .label {
+    text-transform: capitalize;
+}
+
+.issue-list .label .text {
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
+}
+
 @media (max-width:767px) {
     h1.issue-title {
         font-size: $h1_issue_list_font_size * $xs_hX_font_size_ratio;

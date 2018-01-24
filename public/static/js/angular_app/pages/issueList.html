@@ -58,6 +58,12 @@
                                 {{issue.comments}}
                             </span>
                             <a href="issue/{{issue.number}}">{{issue.title}}</a>
+                            
+                            <div data-ng-repeat="label in issue.labels" class="label" style="background-color: #{{label.color}}" data-ng-init="color = label.color">
+                                <span class='text' style="color: #{{label.color}}">
+                                    {{label.name}}
+                                </span>
+                            </div>
                         </h1>
                         <div class="info">
                             <span class="summary-text">
