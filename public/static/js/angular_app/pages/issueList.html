@@ -8,31 +8,47 @@
                         <div class="text-center">
                             <span 
                                 class="button"
-                                data-ng-class="{
-                                    'active': state === 'open'                                 
-                                }"
+                                data-ng-class="{'active': state === 'open'}"
                             >
-                                <a href="issues/open">
-                                    <i class="fa fa-exclamation-circle"></i>
-                                    {{data.count.open}} Open                    
+                                <a href="issues/open"> 
+                                    <span class="fa-stack unselected">
+                                      <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                      <i class="fa fa-exclamation fa-stack-1x center-icon"></i>
+                                    </span>
+
+                                    <span class="fa-stack selected">
+                                      <i class="fa fa-circle fa-stack-2x"></i>
+                                      <i class="fa fa-exclamation fa-stack-1x fa-inverse center-icon"></i>
+                                    </span>
+                                    <span class='title'>
+                                        {{data.count.open}} Open                                        
+                                    </span>                    
                                 </a>
                             </span>
                             <span 
                                 class="button"
-                                data-ng-class="{
-                                    'active': state === 'closed'                                 
-                                }"
+                                data-ng-class="{'active': state === 'closed'}"
                             >
                                 <a href="issues/closed">
-                                    <i class="fa fa-check-circle"></i>
-                                    {{data.count.closed}} Closed                
+                                    <span class="fa-stack unselected">
+                                      <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                      <i class="fa fa-check fa-stack-1x center-icon"></i>
+                                    </span>
+
+                                    <span class="fa-stack selected">
+                                      <i class="fa fa-circle fa-stack-2x"></i>
+                                      <i class="fa fa-check fa-stack-1x fa-inverse center-icon"></i>
+                                    </span>
+                                    <span class='title'>
+                                        {{data.count.closed}} Closed 
+                                    </span>               
                                 </a>
                             </span>
                         </div>
                     </div>
                 </div>
                 <div class='row issue-list-entry' data-ng-repeat='issue in data.issues'>
-                    <div class="status hidden-xs">
+                    <div class="status {{issue.state}} hidden-xs">
                         <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                     </div>
                     <div class="content">
