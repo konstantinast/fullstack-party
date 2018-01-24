@@ -7,8 +7,9 @@ angular.module('tesonetFullstackPartyApp').directive('commentEntry', [
             scope: {
                comment: '='
             },
-            templateUrl: '/static/js/angular_app/templates/comment-entry.html',
+            templateUrl: '/static/html/angular_app/templates/comment-entry.html',
             controller: function() {}
         };
     }
 ]);
+

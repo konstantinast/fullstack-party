@@ -1,3 +1,3 @@
-angular.module('tesonetFullstackPartyApp').controller('mainController', function ($scope) {
-    $scope.message = 'I am the main page.';
+angular.module('tesonetFullstackPartyApp').controller('mainController', function () {
+
 });
