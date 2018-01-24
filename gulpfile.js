@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var sass = require('gulp-sass');
+var runSequence = require('run-sequence');
 
 gulp.task('sass', function () {    
     gulp.src('styles/main.scss')
@@ -52,4 +53,14 @@ gulp.task('publish-3rd-party-assets', function() {
 
 gulp.task('watch', function() {
     gulp.watch('styles/main.scss', ['sass']);
+});
+
+gulp.task('pre-deploy', function(cb) {
+    runSequence(
+        [
+            'sass',
+            'publish-3rd-party-assets',
+        ], 
+        cb
+    );
 });

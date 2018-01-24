@@ -1,3 +1,15 @@
+// General
+$box_border_radius: 5px;
+$background_color: #f5f5f5;
+$navbar_top_color: #ffffff;
+
+// Desktop (xs)
+$h1_issue_list_font_size: 40px;
+
+// Mobile phone (xs-)
+$xs_hX_font_size_ratio: 0.6; 
+$xs_hX_font_size_ratio: 0.6; 
+
 html,
 body {
     height: 100%;
@@ -15,7 +27,7 @@ body {
 }
 
 body {
-    background-color: #f5f5f5
+    background-color: $background_color;
 }
 
 .custom-container {
@@ -25,7 +37,7 @@ body {
 }
 
 .navbar.navbar-top {
-    background-color: #ffffff;
+    background-color: $navbar_top_color;
     margin-bottom: 0px;
     box-shadow: 0 0 2px #B2B2B2;
     height: 15%;
@@ -66,41 +78,6 @@ body {
 
 .comment .content p {
 	padding-bottom: 10px;
-}
-
-/* https://stackoverflow.com/a/8867645/1597960 */
-.bubble {
-    border-radius: 5px;
-    box-shadow: 0 0 2px #B2B2B2;
-    display: inline-block;
-    /* padding: 21px 20px; */
-    position: relative;
-    vertical-align: top;
-}
-
-.bubble::before {
-    background-color: inherit;
-    content: "\00a0";
-    display: block;
-    height: 15px;
-    position: absolute;
-    top: 25px;
-    transform:             rotate( 29deg ) skew( -35deg );
-    -moz-transform:    rotate( 29deg ) skew( -35deg );
-    -ms-transform:     rotate( 29deg ) skew( -35deg );
-    -o-transform:      rotate( 29deg ) skew( -35deg );
-    -webkit-transform: rotate( 45deg );
-    width: 15px;
-}
-
-.bubble.pointed-left {
-    float: left;
-    margin: 1px 5px 5px 20px;
-}
-
-.bubble.pointed-left::before {
-    box-shadow: -1px 1px 1px 0 rgba( 178, 178, 178, .4 );
-    left: -7px;
 }
 
 .container .jumbotron {
@@ -157,16 +134,14 @@ a.back-to-issues:hover {
 }
 
 h1.issue-title {
-	font-size: 30pt;
+	font-size: $h1_issue_list_font_size;
 	color: rgba(51, 51, 51, 255);
 	text-align: left;
 	margin-top:  0px;
 }
 
 h1.issue-title a {
-	font-size: 30pt;
 	color: rgba(153, 153, 153, 255);
-	text-align: center;
 }
 
 .jumbotron .desc {margin-top: 0px;}
@@ -240,7 +215,7 @@ a.logout:hover {
 }
 
 .issue-list-entry {
-	border-radius: 5px;
+	border-radius: $box_border_radius;
 	background-color: #ffffff;
 }
 
@@ -371,7 +346,7 @@ a.logout:hover {
 .scrollable::-webkit-scrollbar
 {
 	width: 6px;
-	background-color: #F5F5F5;
+	background-color: $background_color;
 }
 
 .scrollable::-webkit-scrollbar-thumb
@@ -467,6 +442,29 @@ a.logout:hover {
     margin: 30px;    
 }
 
+.comment-entry {
+    margin-bottom: 15px; 
+    margin-bottom: 10px;
+}
+
+@media (max-width:767px) {
+    h1.issue-title {
+        font-size: $h1_issue_list_font_size * $xs_hX_font_size_ratio;
+    }
+    
+    .comment {
+        width: 100%;
+    }
+    
+    .comment-entry {
+        box-shadow: 0 0 2px #B2B2B2;
+        border-radius: $box_border_radius;
+    }
+    
+    .comment-wrapper {
+        border-radius: $box_border_radius;
+    }
+}
 
 @media (min-width:768px) {
 	.overlay-as-title {
@@ -474,6 +472,41 @@ a.logout:hover {
 	   -moz-transform: scale(0.5);
        -moz-transform-origin: 0 0;
 	}
+    
+    /* https://stackoverflow.com/a/8867645/1597960 */
+    .bubble {
+        border-radius: $box_border_radius;
+        box-shadow: 0 0 2px #B2B2B2;
+        display: inline-block;
+        /* padding: 21px 20px; */
+        position: relative;
+        vertical-align: top;
+    }
+
+    .bubble::before {
+        background-color: inherit;
+        content: "\00a0";
+        display: block;
+        height: 15px;
+        position: absolute;
+        top: 25px;
+        transform:             rotate( 29deg ) skew( -35deg );
+        -moz-transform:    rotate( 29deg ) skew( -35deg );
+        -ms-transform:     rotate( 29deg ) skew( -35deg );
+        -o-transform:      rotate( 29deg ) skew( -35deg );
+        -webkit-transform: rotate( 45deg );
+        width: 15px;
+    }
+
+    .bubble.pointed-left {
+        float: left;
+        margin: 1px 5px 5px 20px;
+    }
+
+    .bubble.pointed-left::before {
+        box-shadow: -1px 1px 1px 0 rgba( 178, 178, 178, .4 );
+        left: -7px;
+    }
 }
 
 @media (min-width:992px) {
