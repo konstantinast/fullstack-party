@@ -96,11 +96,13 @@ app.controller('issueEntryController', [
     '$http',
     '$routeParams',
     'appConfigDataService',
+    '$sce',
     function(
         $scope, 
         $http,
         $routeParams,
-        appConfigDataService
+        appConfigDataService,
+        $sce
     ) {
         var issue_number = $routeParams.number;              
         var repo_owner = $routeParams.repo_owner;
@@ -126,8 +128,17 @@ app.controller('issueEntryController', [
                 number_of_pages: number_of_pages,
                 current_page: page_number
             };
-            
+                        
             $scope.data = response.data;
+            
+            // Generate formated text (at least that's what the ad said :D )
+            var converter = new showdown.Converter();
+          
+            $scope.data.issue.formatted_body = $sce.trustAsHtml(converter.makeHtml($scope.data.issue.body));
+          
+            for (var i = 0; $scope.data.comments.length > i; i++) {
+                $scope.data.comments[i].formatted_body = $sce.trustAsHtml(converter.makeHtml($scope.data.comments[i].body)); 
+            }
         }); 
         
         function getNumberOfPages(total_records, per_page) {

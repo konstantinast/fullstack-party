@@ -17,8 +17,7 @@
                     </span>                    
                 </div>
             </header>
-            <div class="content">
-                {{comment.body}}
+            <div class="content" ng-bind-html="comment.formatted_body">
             </div>
         </div>
     </div>
