@@ -23,7 +23,7 @@ angular.module('tesonetFullstackPartyApp').directive('paginationControls', [
                         clearWaitcherForD();
                                            
                         $templateRequest(
-                            $sce.trustAsResourceUrl('/static/js/angular_app/templates/pagination-controls.html')
+                            $sce.trustAsResourceUrl('static/html/angular_app/templates/pagination-controls.html')
                         ).then(function (html) {
                             var template = angular.element(html);
                             //$element.append(template);
