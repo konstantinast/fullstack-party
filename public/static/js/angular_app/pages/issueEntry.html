@@ -18,8 +18,11 @@
                     </a>
                 </h1> 
                 <div class="desc">
-                    <div class="label status-open">
-                        OPEN
+                    <div class="label status-{{data.issue.state}}">
+                        <i class='fa fa-exclamation-circle'></i>
+                        <span class='text'>
+                            {{data.issue.state}}
+                        </span>
                     </div>
 
                     <div class="info">

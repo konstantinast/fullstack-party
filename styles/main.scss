@@ -147,20 +147,30 @@ h1.issue-title a {
 .jumbotron .desc {margin-top: 0px;}
 
 .jumbotron .desc .label {
-	display:inline-block;
-
-	background-color: #9fd533;
-	height: 28px;
-
-	font-size: 14pt;
-	color: rgba(255, 255, 255, 255);
-	text-align: left;
+    display: inline-block;   
+    font-size: 14px;
+    color: white;
+    text-align: left;
+    padding: 9px 10px;
 }
 
 .jumbotron .desc .info {
 	display:inline-block;
 	vertical-align:middle;
 	margin-left:20px;
+}
+
+.jumbotron .desc .label {
+    text-transform: uppercase;
+}
+
+.jumbotron .desc .status-open {
+    background-color: #9fd533; 
+}
+
+.jumbotron .desc .status-closed {
+    background-color: #cb2431; 
+    opacity: 0.25;
 }
 
 .info {
