@@ -13,7 +13,7 @@ angular.module('tesonetFullstackPartyApp').factory('apiDataService',[
         service.getIssueListData = function(o) {
             var url = appConfigDataService.api_url + 'issues' + '?' 
                 + 'state=' + o.state + '&'
-                + 'page=' + o.page_number
+                + 'page=' + o.page
             ; 
             
             var deferred = $q.defer();
