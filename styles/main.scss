@@ -17,8 +17,18 @@ $xs_hX_font_size_ratio: 0.6;
 $xs_hX_font_size_ratio: 0.6; 
 
 html,
-body {
+body,
+#view-container {
     height: 100%;
+}
+
+#loader-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    color: #9fd533;  
 }
 
 .viewport {

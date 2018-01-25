@@ -18,6 +18,10 @@
         <script src="/static/js/angular_app/ng-app.min.js"></script>
     </head>
 
-    <body ng-view>
+    <body>
+        <resolve-loader></resolve-loader>
+
+        <div id="view-container" data-ng-view>
+        </div>
     </body>
 </html>

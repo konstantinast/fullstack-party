@@ -7,14 +7,24 @@ angular.module('tesonetFullstackPartyApp').config(function ($routeProvider, $loc
         })
         .when('/login_with_github', {
             templateUrl: 'static/html/angular_app/pages/main.html',
-            controller: function() {
-                window.location.replace('/api/login_with_github');
+            controller: function($timeout) {
+                $timeout(
+                    function () {
+                        window.location.replace('/api/login_with_github');                       
+                    },
+                    500
+                );
             }
         })
         .when('/logout', {
-            templateUrl: 'static/html/angular_app/pages/main.html',
-            controller: function() {
-                window.location.replace('/api/logout');
+            template: '',
+            controller: function($timeout) {
+                $timeout(
+                    function () {
+                        window.location.replace('/api/logout');                        
+                    },
+                    500
+                );
             }
         })
         .when('/issues/:state?/:page_number?', {
