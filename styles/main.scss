@@ -543,6 +543,10 @@ a.logout:hover {
     .comment-wrapper {
         border-radius: $box_border_radius;
     }
+    
+    .btn-login-with-github {
+        padding: 18px 40px;
+    }
 }
 
 @media (min-width:768px) {
