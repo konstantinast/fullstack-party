@@ -8,10 +8,12 @@ use Slim\Http\Response;
 
 // Adding x-secret header to make sure front-end, that a user has non-expired access token
 $app->add(function (Request $request, Response $response, $next) {
+    $this->logger->info("middleware");
+
     $path = $request->getUri()->getPath();
 
     $include_pattern = '/\/api\/.*/';
-    $exclude_pattern = '/\/api\/login.*/';
+    $exclude_pattern = '/(\/api\/login.*)|(\/api\/github_auth_callback.*)/';
 
     if (
         preg_match($include_pattern, $path)
