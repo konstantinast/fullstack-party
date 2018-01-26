@@ -39,7 +39,7 @@ If you found this task it means we are looking for you!
 6. In your shell/terminal navigate to project root dir. 
 7. Run `composer install`.
 9. Run `yarn install`.
-10. Run `gulp build-predeploy-run`.
+10. Run `gulp build-test-predeploy-run`.
 11. Cross fingers (mandatory step) :D
 12. Open browser url `http://localhost:8080`
 13. A primitive version of so called 'Single-page application' implemented using AngularJs 1.x should materialize before your optical input device ;) :) (or not ... :( if that is the case, then I could try setup stuff with more enclosed dev environment like Vagrant or something similar)
