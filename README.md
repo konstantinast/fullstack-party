@@ -32,20 +32,16 @@ If you found this task it means we are looking for you!
 
 ## How to run this project
 
-1. Make sure PHP 5.6 is installed.
-2. Make sure composer (PHP) is installed.
-3. Make sure yarn (alternative to bower) is installed.
-4. In your shell/terminal navigate to project root dir.
-5. Run `composer install`
-6. Run `yarn install`
-7. Run `php -S localhost:8080 -t public/`.
-8. Crossing fingers
-9. Open browser url `http://localhost:8080`
-10. A primitive version of so called 'Single-page application' implemented using AngularJs 1.x should materialize before your optical input device ;) :) (or not ... :( if that is the case, then I could try setup stuff with more enclosed dev environment like Vagrant or something similar)
+1. Make sure PHP 5.6 is installed. [ubuntu](https://askubuntu.com/a/756186); [win-step1](https://chocolatey.org/install),[win-step2](https://chocolatey.org/packages/php/5.6.7);[mac](https://ryanwinchester.ca/posts/install-php-5-6-in-osx-10-with-homebrew|)
+2. Make sure composer (PHP) is installed. [link](https://getcomposer.org/download/) or [win](https://chocolatey.org/packages/composer)
+4. Make sure node.js is installed. [link](https://nodejs.org/en/download/) or [win](https://chocolatey.org/packages/nodejs-lts)
+5. Make sure yarn is installed. [link](https://yarnpkg.com/en/docs/install)
+6. In your shell/terminal navigate to project root dir. 
+7. Run `composer install`.
+9. Run `yarn install`.
+10. Run `gulp build-predeploy-run`.
+11. Cross fingers (mandatory step) :D
+12. Open browser url `http://localhost:8080`
+13. A primitive version of so called 'Single-page application' implemented using AngularJs 1.x should materialize before your optical input device ;) :) (or not ... :( if that is the case, then I could try setup stuff with more enclosed dev environment like Vagrant or something similar)
 
-p.s. not tested in Win environment.
-
-## Known issues
-
-- **WORK IN PROGRESS** (check https://github.com/konstantinast/fullstack-party/issues page a bit later for details)
-
+p.s. tested in .nix environment (Ubuntu 16.04), but with minor mods should run on Mac or Win too.

@@ -6,9 +6,15 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var debug = require('gulp-debug');
 var ngAnnotate = require('gulp-ng-annotate');
+var connect = require('gulp-connect-php');
 
-gulp.task('sass', function () {    
-    gulp.src('styles/main.scss')
+gulp.task('build-and-publish-sass', function () {  
+    var target_file = 'main.css';
+    var src_dir = './src/scss/**/*.*';
+    
+    return gulp.src(src_dir)
+        .pipe(debug())
+        .pipe(concat(target_file))
         .pipe(sass({style: 'expanded'}))
         .on('error', gutil.log)
         .pipe(gulp.dest('public/static/css'))
@@ -53,12 +59,12 @@ gulp.task('publish-3rd-party-assets', function() {
     gutil.log('----');
 
     return gulp.src(files , { base: src_dir })
-        .pipe(gulp.dest(dst_dir));
+        .pipe(gulp.dest(dst_dir))
     ;
 });
 
 // {Publish !== deploy :)
-gulp.task('build-and-publish-ng-app', function() {
+gulp.task('build-and-publish-ng-app-js', function() {
     // JS settings
     var js_sources = [
         './src/js/angular_app/**/*.*'
@@ -66,36 +72,74 @@ gulp.task('build-and-publish-ng-app', function() {
     var js_target_file = 'ng-app.min.js';
     var js_output_dir = './public/static/js/angular_app/';
     
-    // HTML (template) settings 
-    var html_src_dir = './src/html/angular_app';
-    var html_sources = [html_src_dir + '/**/*.*'];
-    var html_output_dir = './public/static/html/angular_app';
-    
-    // ACTION !!!
-    gulp.src(js_sources)
+    return gulp.src(js_sources)
         .pipe(debug())
         .pipe(ngAnnotate())
         .pipe(uglify())
         .pipe(concat(js_target_file))
         .pipe(gulp.dest(js_output_dir))
+    ;
+})
 
-    gulp.src(html_sources , { base: html_src_dir })
+gulp.task('build-and-publish-ng-app-html', function() {  
+    // HTML (template) settings 
+    var html_src_dir = './src/html/angular_app';
+    var html_sources = [html_src_dir + '/**/*.*'];
+    var html_output_dir = './public/static/html/angular_app';  
+    
+    return gulp.src(html_sources , { base: html_src_dir })
         .pipe(debug())
-        .pipe(gulp.dest(html_output_dir));
+        .pipe(gulp.dest(html_output_dir))
+    ;
+});
+
+gulp.task('build-and-publish-ng-app', function() {  
+    return gulp.start(
+        'build-and-publish-ng-app-html',
+        'build-and-publish-ng-app-js'
+    );
+    ;
+});
+
+gulp.task('build-and-publish-img', function() {
+    // JS settings
+    var img_sources = [
+        './src/img/**/*.*'
+    ];
+    var js_output_dir = './public/static/img/';
+            
+    // ACTION !!!
+    return gulp.src(img_sources)
+        .pipe(debug())
+        .pipe(gulp.dest(js_output_dir))
     ;
 });
 
 gulp.task('watch', function() {
-    gulp.watch('styles/main.scss', ['sass']);
+    return gulp.watch('/src/scss/main.scss', ['build-and-publish-sass']);
 });
 
-gulp.task('pre-deploy', function(cb) {
-    runSequence(
-        [
-            'sass',
-            'publish-3rd-party-assets',
-            'build-and-publish-ng-app'
-        ], 
-        cb
+gulp.task('build', function() {
+    return runSequence(
+        'build-and-publish-sass',
+        'publish-3rd-party-assets',
+        'build-and-publish-ng-app',
+        'build-and-publish-img'
+    )
+});
+
+gulp.task('run-php-webserver', function() {
+    return connect.server({
+        hostname: 'localhost',
+        port: 8080,
+        base: 'public/'
+    });
+});
+
+
+gulp.task('build-predeploy-run', function() {
+    return runSequence(
+        'build',
+        'run-php-webserver'
     );
 });
