@@ -1,0 +1,13 @@
+<a 
+    href="/login_with_github" 
+    class="btn btn-login-with-github"
+    data-ng-class="{'deactivated': autologin_in_progress}"
+>
+    <span data-ng-if="!autologin_in_progress">
+        Login With Github <i class="fa fa-lock"></i>
+    </span>
+    
+    <span data-ng-if="autologin_in_progress">
+        Auto login in progress <i class="fa fa-lock faa-wrench animated"></i>
+    </span>
+</a>

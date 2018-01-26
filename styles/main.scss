@@ -526,6 +526,10 @@ a.logout:hover {
     filter: invert(100%);
 }
 
+.btn-login-with-github.deactivated {
+    cursor: progress;
+}
+
 @media (max-width:767px) {
     h1.issue-title {
         font-size: $h1_issue_list_font_size * $xs_hX_font_size_ratio;

@@ -26,7 +26,8 @@ gulp.task('publish-3rd-party-assets', function() {
         'angular-route/**/*.*',
         'moment/**/*.*',
         'ng-time-relative/**/*.*',
-        'showdown/**/*.*'
+        'showdown/**/*.*',
+        'font-awesome-animation/**/*.*'
     ];
     
     var css = [

@@ -717,6 +717,10 @@ flagged-respawn@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/flagged-respawn/-/flagged-respawn-1.0.0.tgz#4e79ae9b2eb38bf86b3bb56bf3e0a56aa5fcabd7"
 
+font-awesome-animation@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/font-awesome-animation/-/font-awesome-animation-0.2.0.tgz#a6776145485992fc1435ea42b9d68195d16079f1"
+
 font-awesome@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"

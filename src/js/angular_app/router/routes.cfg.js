@@ -6,7 +6,7 @@ angular.module('tesonetFullstackPartyApp').config(function ($routeProvider, $loc
             controller: 'mainController'
         })
         .when('/login_with_github', {
-            templateUrl: 'static/html/angular_app/pages/main.html',
+            template: '',
             controller: function($timeout) {
                 $timeout(
                     function () {
@@ -60,6 +60,9 @@ angular.module('tesonetFullstackPartyApp').config(function ($routeProvider, $loc
                     return issueControllerInitialData.getData(options);
                 }
             }
+        })
+        .otherwise({ 
+            redirectTo: '/'
         });
         
     // use the HTML5 History API a.k.a dumping ugly # in url 
