@@ -13,11 +13,16 @@ $app->get('/api/issues', function (Request $request, Response $response, array $
 
     $state = $request->getParam('state');
     $page_raw = (int)$request->getParam('page');
-    $client = new \Github\Client();
-    $client->authenticate($_SESSION['github_api_access_token'], null, Github\Client::AUTH_HTTP_TOKEN);
 
-    $current_user = $client->currentUser();
-    $current_user_info = $current_user->show();
+    try {
+        $client = new \Github\Client();
+        $client->authenticate($_SESSION['github_api_access_token'], null, Github\Client::AUTH_HTTP_TOKEN);
+
+        $current_user = $client->currentUser();
+        $current_user_info = $current_user->show();
+    } catch (Exception $exc) {
+        return $response->withStatus(401);
+    }
 
     $page = !empty($page_raw) ? $page_raw : 1;
     $per_page = ISSUE_LIST_PER_PAGE_LIMIT;

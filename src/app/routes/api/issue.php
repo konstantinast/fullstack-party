@@ -14,8 +14,15 @@ $app->get('/api/issue', function (Request $request, Response $response, array $a
     $page = !empty($page_raw) ? $page_raw : 1;
     $limit = ISSUE_COMMENT_LIST_PER_PAGE_LIMIT;
 
-    $client = new \Github\Client();
-    $client->authenticate($_SESSION['github_api_access_token'], null, Github\Client::AUTH_HTTP_TOKEN);
+    try {
+        $client = new \Github\Client();
+        $client->authenticate($_SESSION['github_api_access_token'], null, Github\Client::AUTH_HTTP_TOKEN);
+
+        $current_user = $client->currentUser();
+        $current_user->show(); // just to cause exception if user is unauthentificated
+    } catch (Exception $exc) {
+        return $response->withStatus(401);
+    }
 
     $issue_api = $client->api('issue');
 
