@@ -33,7 +33,7 @@
     },
     "scripts": {
         "start": "php -S localhost:8080 -t public public/index.php",
-        "test": "phpunit"
+        "test": "php ./vendor/phpunit/phpunit/phpunit"
     }
 
 }

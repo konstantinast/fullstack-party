@@ -8,7 +8,6 @@ use Slim\Http\Response;
  */
 
 $app->get('/api/github_auth_callback', function (Request $request, Response $response, array $args) {
-    // Sample log message
     $this->logger->info("/api/github_auth_callback route");
 
     $code = $request->getParam('code'); // Github api returned key (code)

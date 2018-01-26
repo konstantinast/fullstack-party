@@ -9,27 +9,28 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
+// Resolve some paths
+$backpath_prefix = '/..';
+
 require __DIR__ . '/../vendor/autoload.php';
 
 session_start();
 
 // Instantiate the app
-$settings = require __DIR__ . '/../src/settings.php';
+$settings = require __DIR__ . $backpath_prefix . '/src/settings.php';
 $app = new \Slim\App($settings);
 
 // Load constants
-require __DIR__ . '/../src/constants-dev.php';
-require __DIR__ . '/../src/constants.php';
+require __DIR__ . $backpath_prefix . '/src/constants.php';
 
 // Set up dependencies
-@include __DIR__ . '/../src/dependencies-dev.php';
-require __DIR__ . '/../src/dependencies.php';
+require __DIR__ . $backpath_prefix . '/src/dependencies.php';
 
 // Register middleware
-require __DIR__ . '/../src/middleware.php';
+require __DIR__ . $backpath_prefix . '/src/middleware.php';
 
 // Register routes
-require __DIR__ . '/../src/routes.php';
+require __DIR__ . $backpath_prefix . '/src/routes.php';
 
 // Run app
 $app->run();

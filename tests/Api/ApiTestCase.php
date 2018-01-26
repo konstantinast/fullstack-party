@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Functional;
+namespace Tests\Api;
 
 use Slim\App;
 use Slim\Http\Request;
@@ -13,7 +13,7 @@ use Slim\Http\Environment;
  * tuned to the specifics of this skeleton app, so if your needs are
  * different, you'll need to change it.
  */
-class BaseTestCase extends \PHPUnit_Framework_TestCase
+class ApiTestCase extends \PHPUnit_Framework_TestCase
 {
     /**
      * Use middleware when running application?
@@ -36,7 +36,8 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
         $environment = Environment::mock(
             [
                 'REQUEST_METHOD' => $requestMethod,
-                'REQUEST_URI' => $requestUri
+                'REQUEST_URI' => $requestUri,
+                'SERVER_NAME' => 'localhost:8080',
             ]
         );
 

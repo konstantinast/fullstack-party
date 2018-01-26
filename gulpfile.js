@@ -7,6 +7,7 @@ var concat = require('gulp-concat');
 var debug = require('gulp-debug');
 var ngAnnotate = require('gulp-ng-annotate');
 var connect = require('gulp-connect-php');
+var phpunit = require('gulp-phpunit');
 
 gulp.task('build-and-publish-sass', function () {  
     var target_file = 'main.css';
@@ -98,7 +99,6 @@ gulp.task('build-and-publish-ng-app', function() {
         'build-and-publish-ng-app-html',
         'build-and-publish-ng-app-js'
     );
-    ;
 });
 
 gulp.task('build-and-publish-img', function() {
@@ -128,18 +128,59 @@ gulp.task('build', function() {
     )
 });
 
+var connect_instance = new connect();
+
 gulp.task('run-php-webserver', function() {
-    return connect.server({
+    connect_instance.server({
         hostname: 'localhost',
         port: 8080,
         base: 'public/'
     });
 });
 
+gulp.task('phpunit', function() {
+    return gulp.src('./phpunit.xml')
+        .pipe(phpunit('./vendor/phpunit/phpunit/phpunit', {'debug': false}))
+        .on('error', function () {
+            // stahp
+            process.exit();
+        })
+    ;
+});
 
-gulp.task('build-predeploy-run', function() {
+gulp.task('backend-test', function() {
+    return gulp.start(
+        'phpunit'
+    );
+});
+
+gulp.task('test', function() {
+    return gulp.start(
+        'backend-test'
+    );
+});
+
+gulp.task('build-test-predeploy-run', function() {
     return runSequence(
         'build',
+        'test',
         'run-php-webserver'
     );
 });
+
+function killServer() {
+    connect_instance.closeServer();
+}
+
+//do something when app is closing
+process.on('exit', killServer);
+
+//catches ctrl+c event
+process.on('SIGINT', killServer);
+
+// catches "kill pid" (for example: nodemon restart)
+process.on('SIGUSR1', killServer);
+process.on('SIGUSR2', killServer);
+
+//catches uncaught exceptions
+process.on('uncaughtException', killServer);

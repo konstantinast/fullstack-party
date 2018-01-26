@@ -4,7 +4,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 $app->get('/api/issues', function (Request $request, Response $response, array $args) {
-    $this->logger->info("/api/issues");
+    $this->logger->info("/api/issues route");
 
     $allowed_states = [
         'open',

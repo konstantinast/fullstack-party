@@ -4,6 +4,8 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 $app->get('/api/issue', function (Request $request, Response $response, array $args) {
+    $this->logger->info("/api/issue route");
+
     $number = $request->getParam('number'); // internal number of issue in repo
     $repo_owner = $request->getParam('repo_owner');
     $repo_name = $request->getParam('repo_name');

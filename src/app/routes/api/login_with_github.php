@@ -4,7 +4,6 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 $app->map(['GET', 'POST'], '/api/login_with_github', function (Request $request, Response $response, array $args) {
-    // Sample log message
     $this->logger->info("/api/login_with_github route");
 
     $method = $request->getMethod();

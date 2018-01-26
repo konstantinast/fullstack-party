@@ -32,5 +32,8 @@
     },
     "scripts": {
         "postinstall": "gulp publish-3rd-party-assets"
+    },
+    "devDependencies": {
+        "gulp-phpunit": "^0.25.0"
     }
 }
